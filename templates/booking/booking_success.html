@@ -1,0 +1,51 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center">
+    <!-- Success Icon -->
+    <div class="bg-white rounded-full w-24 h-24 mx-auto mb-8 flex items-center justify-center shadow-lg">
+        <i class="fas fa-check-circle text-6xl text-accent-color"></i>
+    </div>
+
+    <h1 class="text-4xl font-bold text-automotive mb-4">Booking Confirmed!</h1>
+    <p class="text-xl text-gray-600 mb-8">
+        Thank you for choosing MotoPeladen! Your appointment has been successfully booked.
+    </p>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
+        <h2 class="text-2xl font-bold text-automotive mb-4">Next Steps</h2>
+        <ul class="space-y-4 text-gray-600 text-left">
+            <li class="flex items-start">
+                <i class="fas fa-envelope text-accent-color mr-3 mt-1"></i>
+                <span><strong>Confirmation Email:</strong> Check your email for booking details and confirmation.</span>
+            </li>
+            <li class="flex items-start">
+                <i class="fas fa-phone text-accent-color mr-3 mt-1"></i>
+                <span><strong>Follow-up Call:</strong> Our team may contact you to confirm your appointment.</span>
+            </li>
+            <li class="flex items-start">
+                <i class="fas fa-clock text-accent-color mr-3 mt-1"></i>
+                <span><strong>Arrival Time:</strong> Please arrive 10-15 minutes before your scheduled appointment.</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="space-x-4">
+        <a href="{% url 'booking_index' %}" class="btn-primary px-8 py-3 text-lg font-semibold rounded-lg inline-block">
+            <i class="fas fa-home mr-2"></i>Back to Home
+        </a>
+        <a href="{% url 'book_service' %}" class="btn-secondary px-8 py-3 text-lg font-semibold rounded-lg inline-block">
+            <i class="fas fa-plus mr-2"></i>Book Another Service
+        </a>
+    </div>
+
+    <!-- Contact Reminder -->
+    <div class="mt-12 p-6 bg-gray-50 rounded-xl">
+        <h3 class="text-lg font-bold text-automotive mb-2">Need to Make Changes?</h3>
+        <p class="text-gray-600">
+            Contact us at <strong>+1 (555) 123-4567</strong> or 
+            <strong>info@motopeladen.com</strong>
+        </p>
+    </div>
+</div>
+{% endblock %}

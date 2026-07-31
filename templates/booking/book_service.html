@@ -1,0 +1,221 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav class="text-sm text-gray-600 mb-6">
+    <a href="{% url 'booking_index' %}" class="hover:text-automotive">Home</a>
+    <span class="mx-2">/</span>
+    <span class="text-automotive">Book Service</span>
+</nav>
+
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-automotive mb-4">Book Your Service</h1>
+        <p class="text-xl text-gray-600">Fill out the form below to schedule your motorcycle repair appointment</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Booking Form -->
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-automotive mb-6">Service Details</h2>
+            
+            <form method="post" id="booking-form">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="{{ form.customer_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Full Name *
+                        </label>
+                        {{ form.customer_name }}
+                        {% if form.customer_name.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.customer_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.customer_phone.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Phone Number *
+                        </label>
+                        {{ form.customer_phone }}
+                        {% if form.customer_phone.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.customer_phone.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="{{ form.customer_email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address *
+                        </label>
+                        {{ form.customer_email }}
+                        {% if form.customer_email.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.customer_email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.motorcycle_model.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Motorcycle Model *
+                        </label>
+                        {{ form.motorcycle_model }}
+                        {% if form.motorcycle_model.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.motorcycle_model.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="{{ form.motorcycle_plate.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Plate Number
+                        </label>
+                        {{ form.motorcycle_plate }}
+                        {% if form.motorcycle_plate.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.motorcycle_plate.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.service.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Service Type *
+                        </label>
+                        {{ form.service }}
+                        {% if form.service.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.service.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="{{ form.booking_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Preferred Date *
+                        </label>
+                        {{ form.booking_date }}
+                        {% if form.booking_date.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.booking_date.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.booking_time.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Preferred Time *
+                        </label>
+                        {{ form.booking_time }}
+                        {% if form.booking_time.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.booking_time.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Additional Notes
+                    </label>
+                    {{ form.notes }}
+                    {% if form.notes.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.notes.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <button type="submit" class="btn-primary px-8 py-3 text-lg font-semibold rounded-lg">
+                        <i class="fas fa-calendar-check mr-2"></i>Confirm Booking
+                    </button>
+                    <div class="flex gap-3">
+                        <a href="/#parts" class="btn-secondary px-6 py-3 rounded-lg">
+                            <i class="fas fa-shopping-cart mr-2"></i>Browse Parts
+                        </a>
+                        <a href="/" class="text-gray-600 hover:text-automotive py-3">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Service Information -->
+        <div class="space-y-6">
+            <!-- Selected Service Info -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-lg font-bold text-automotive mb-4">Service Information</h3>
+                <div id="service-info" class="text-gray-600">
+                    <p>Please select a service to view details.</p>
+                </div>
+            </div>
+
+            <!-- Booking Instructions -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-lg font-bold text-automotive mb-4">Booking Instructions</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li><i class="fas fa-check-circle text-accent-color mr-2"></i>Fill in all required fields marked with *</li>
+                    <li><i class="fas fa-check-circle text-accent-color mr-2"></i>Choose your preferred date and time</li>
+                    <li><i class="fas fa-check-circle text-accent-color mr-2"></i>You will receive a confirmation email</li>
+                    <li><i class="fas fa-check-circle text-accent-color mr-2"></i>Our team will contact you to confirm</li>
+                </ul>
+            </div>
+
+            <!-- Parts Quick Link -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-lg font-bold text-automotive mb-4">Looking for Parts?</h3>
+                <p class="text-gray-600 mb-4">Browse our selection of genuine motorcycle parts and accessories.</p>
+                <a href="/#parts" class="btn-primary block text-center px-4 py-2 rounded-lg">
+                    <i class="fas fa-shopping-cart mr-2"></i>View Parts Catalog
+                </a>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-lg font-bold text-automotive mb-4">Need Help?</h3>
+                <p class="text-gray-600 mb-4">If you need assistance with booking, please contact us:</p>
+                <div class="space-y-2 text-gray-600">
+                    <p><i class="fas fa-phone mr-2"></i>+1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope mr-2"></i>info@motopeladen.com</p>
+                    <p><i class="fas fa-clock mr-2"></i>Mon-Sat: 8:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceSelect = document.getElementById('{{ form.service.id_for_label }}');
+    const serviceInfo = document.getElementById('service-info');
+    
+    // Service details mapping
+    const serviceDetails = {
+        {% for service in services %}
+        '{{ service.id }}': {
+            name: '{{ service.name|escapejs }}',
+            description: '{{ service.description|escapejs }}',
+            price: '₱{{ service.price }}',
+            duration: '{{ service.duration_minutes }} minutes'
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    serviceSelect.addEventListener('change', function() {
+        const selectedService = serviceDetails[this.value];
+        if (selectedService) {
+            serviceInfo.innerHTML = 
+                '<h4 class="font-bold text-automotive mb-2">' + selectedService.name + '</h4>' +
+                '<p class="text-gray-600 mb-2">' + selectedService.description + '</p>' +
+                '<div class="flex justify-between text-sm">' +
+                    '<span class="text-accent-color font-bold">' + selectedService.price + '</span>' +
+                    '<span class="text-gray-500">' + selectedService.duration + '</span>' +
+                '</div>';
+        } else {
+            serviceInfo.innerHTML = '<p>Please select a service to view details.</p>';
+        }
+    });
+
+    // Initialize with first service if available
+    if (serviceSelect.options.length > 0) {
+        serviceSelect.dispatchEvent(new Event('change'));
+    }
+});
+</script>
+{% endblock %}
