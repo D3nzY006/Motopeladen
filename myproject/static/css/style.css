@@ -1,0 +1,49 @@
+/* Small project-level stylesheet to improve layout and image handling */
+:root{
+    --primary: #14b8a6;
+    --bg: #f8fafc;
+}
+
+html,body{height:100%;}
+body{
+    background: linear-gradient(180deg,#f0f8ff 0%, #f8fafc 100%);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* App container tweaks to add nicer shadows and spacing */
+#app{
+    padding-bottom: 56px; /* avoid bottom elements overlapping */
+}
+
+/* Make product images responsive and consistent */
+.product-image{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+/* Make product cards a bit nicer */
+.product-card{
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 6px 18px rgba(4,7,20,0.06);
+}
+
+/* Simple navbar fix for mobile layout */
+.navbar{
+    background: white;
+    border-bottom: 1px solid rgba(15,23,42,0.03);
+}
+
+/* Buttons improvements */
+.btn-primary{
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Minor responsive adjustments */
+@media(min-width:768px){
+    .product-image{height:220px}
+}
